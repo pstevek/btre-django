@@ -14,6 +14,10 @@ img {
 .social a {
   margin-right: 0.4rem; }
 
+.img-thumb {
+  height: 75px;
+}
+
 #showcase {
   background: url(../img/showcase.jpg) no-repeat top center fixed/cover;
   position: relative;
