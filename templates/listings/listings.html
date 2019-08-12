@@ -19,17 +19,5 @@
         </div>
     </section>
     <!-- Listings -->
-    <section id="listings" class="py-4">
-        <div class="container">
-            <div class="row">
-                {% include 'partials/listings/listing_card.html' with listings=listings %}
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    {% include 'partials/listings/listings_pagination.html' with listings=listings %}
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include 'partials/listings/listings_block.html' %}
 {% endblock content %}
