@@ -3,22 +3,22 @@
     Author :    Steve Kamanke
     Version :   1.0
 {% endcomment %}
-<!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Stylesheets -->
-    {% include 'partials/head-scripts.html' %}
-    <title>BT Real Estate</title>
-</head>
-<body>
-    <!-- Nav bars -->
-    {% include 'partials/nav-bar.html' %}
-    <!-- Content -->
-    {% block content %} {% endblock %}
-    <!-- Footer -->
-    {% include 'partials/footer.html' %}
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- Stylesheets -->
+        {% include 'partials/head-scripts.html' %}
+        <title>BT Real Estate | {% block title %}{% endblock %} </title>
+    </head>
+    <body>
+        <!-- Nav bars -->
+        {% include 'partials/nav-bar.html' %}
+        <!-- Content -->
+        {% block content %}{% endblock %}
+        <!-- Footer -->
+        {% include 'partials/footer.html' %}
+    </body>
 </html>
