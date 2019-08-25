@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from contacts.models import Contact
 
 
 def login(request):
@@ -13,7 +14,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, 'You are now logged in')
-            return redirect('index')  # TODO: Redirect to Dashboard
+            return redirect('dashboard')  # TODO: Redirect to Dashboard
         else:
             messages.error(request, "Invalid credentials")
             return redirect('login')
@@ -30,8 +31,12 @@ def logout(request):
 
 def dashboard(request):
     if request.user.is_authenticated:
+        contacts_list = Contact.objects.filter(user=request.user).order_by('-contact_date')
         context = {
             'user': request.user,
+            'title': 'User Dashboard',
+            'description': 'Manage your BT Real Estate account',
+            'contacts_list': contacts_list
         }
         return render(request, 'accounts/dashboard.html', context)
     else:

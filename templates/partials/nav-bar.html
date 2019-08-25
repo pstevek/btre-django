@@ -1,5 +1,5 @@
 {% load static %}
-<!-- Top Bar -->
+
 <section id="top-bar" class="p-3">
     <div class="container">
         <div class="row">
@@ -56,26 +56,38 @@
 
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <li class="nav-item {% if 'admin' in request.path %} active {% endif %} mr-3">
+                            <a class="nav-link" href="/admin">
+                                <i class="fab fa-python"></i> Admin
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item {% if 'dashboard' in request.path %} active {% endif %} mr-3">
                         <a class="nav-link" href="{% url 'dashboard' %}">
-                            <i class="fas fa-globe"></i> Dashboard</a>
+                            <i class="fas fa-globe"></i> Dashboard
+                        </a>
                     </li>
                     <li class="nav-item mr-3">
                         <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">
-                            <i class="fas fa-sign-out-alt"></i>Logout</a>
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </li>
+                    <li class="nav-item mr-3 d-none">
                         <form action="{% url 'logout' %}" id="logout" method="post">
                             {% csrf_token %}
-                            <input type="hidden">
                         </form>
                     </li>
                 {% else %}
                     <li class="nav-item {% if 'register' in request.path %} active {% endif %} mr-3">
                         <a class="nav-link" href="{% url 'register' %}">
-                            <i class="fas fa-user-plus"></i> Register</a>
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
                     </li>
                     <li class="nav-item {% if 'login' in request.path %} active {% endif %} mr-3">
                         <a class="nav-link" href="{% url 'login' %}">
-                            <i class="fas fa-sign-in-alt"></i>Login</a>
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
                     </li>
                 {% endif %}
             </ul>

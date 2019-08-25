@@ -22,6 +22,7 @@ def listing(request, listing_id):
     listing = get_object_or_404(Listing, pk=listing_id)
     listing_photos = []
     address = listing.city + ' ' + listing.state + ', ' + listing.zipcode
+    user = request.user if request.user.is_authenticated else None
 
     for i in range(1, 7):
         attr = 'photo_' + str(i)
@@ -33,7 +34,9 @@ def listing(request, listing_id):
         'listing': listing,
         'listing_photos': listing_photos,
         'title': listing.title,
-        'address': address
+        'address': address,
+        'user_fullname': (user.first_name + ' ' + user.last_name) if user else '',
+        'user_email': user.email if user else '',
     }
 
     return render(request, 'listings/listing.html', context)
