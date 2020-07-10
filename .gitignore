@@ -9,3 +9,4 @@ btre-venv
 .vscode
 .idea
 /static
+app.ini

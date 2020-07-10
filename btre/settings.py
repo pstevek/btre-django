@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from django.contrib.messages import constants as messages
+from configparser import RawConfigParser
+
+# Copy example.app.ini to app.ini and fill in appropriate values.
+parser = RawConfigParser()
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+parser.read_file(open(os.path.join(PROJECT_ROOT, '../app.ini')))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,10 +89,11 @@ WSGI_APPLICATION = 'btre.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'btre',
-        'USER': 'btre',
-        'HOST': 'localhost',
-        'PASSWORD': 'btre'
+        'NAME': parser.get('database', 'name'),
+        'USER': parser.get('database', 'user'),
+        'PASSWORD': parser.get('database', 'password'),
+        'HOST': parser.get('database', 'host'),
+        'PORT': parser.getint('database', 'port')
     }
 }
 
@@ -143,3 +150,11 @@ MEDIA_URL = '/media/'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+# E-MAIL SETTINGS
+
+EMAIL_USE_TLS = parser.getboolean('email', 'use_tls')
+EMAIL_HOST = parser.get('email', 'host')
+EMAIL_PORT = parser.getint('email', 'port')
+EMAIL_HOST_USER = parser.get('email', 'user')
+EMAIL_HOST_PASSWORD = parser.get('email', 'password')

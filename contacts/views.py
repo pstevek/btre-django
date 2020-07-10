@@ -1,4 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
@@ -32,7 +34,17 @@ def make_inquiry(request):
     contact = Contact(listing=listing, user=user, name=name, email=email, phone=phone, message=message)
     contact.save()
 
-    # TODO: Implement django sendmail using G-mail.
+    # TODO: Implement django sendmail using G-mail
+    mail_title = 'Property Listing Inquiry'
+    mail_body = 'There has been an inquiry for ' + listing.title + '. Sign into admin panel for more info.'
+
+    send_mail(
+        mail_title,
+        mail_body,
+        settings.EMAIL_HOST_USER,
+        [email],
+        fail_silently=False
+    )
 
     messages.success(request, 'Your request has been submitted, you will be contact shortly !')
 
