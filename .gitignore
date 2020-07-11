@@ -10,3 +10,4 @@ btre-venv
 .idea
 /static
 app.ini
+dump.sql
